@@ -4,6 +4,7 @@ USE `week5_company_db` ;
 SELECT * FROM employee;
 SELECT * FROM department;
 SELECT * FROM project;
+SELECT * FROM WORKS_ON;
 
 
 select	Fname, Lname, Bdate, Address
