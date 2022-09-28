@@ -36,17 +36,18 @@ SELECT	Pnumber, Dnumber, Lname, Address, Bdate
 FROM 	EMPLOYEE, PROJECT, DEPARTMENT
 WHERE	Dnum=Dnumber and Mgr_ssn=Ssn and plocation='Houston';
 
-
-(select	distinct pnumber
-from	employee, project, department
-where	Lname='Smith' and
-		project.Dnum=dnumber and
-		mgr_ssn=ssn)
-union
-(select	distinct pnumber
-from 	project, employee, department
-where	Lname='Smith' and
-		dnum=dnumber);
+-- 일반 사원이든 관리자이든 간에 
+-- 성(Lname)이 'Smith'인 사원이 수행하는 프로젝트 번호(Pnumber)의 리스트를 검색하라. 
+-- (hint : union)
+(-- 관리자
+SELECT	DISTINCT PNUMBER
+FROM	EMPLOYEE, DEPARTMENT, PROJECT
+WHERE	DNUM=DNUMBER AND MGR_SSN=SSN AND Lname='Smith'
+) union (-- 일반 사원
+SELECT	DISTINCT PNUMBER
+FROM 	PROJECT, WORKS_ON, EMPLOYEE
+WHERE	SSN=ESSN AND PNUMBER=PNO AND Lname='Smith'
+);
 
 select	Fname, Lname, Address
 from	employee
