@@ -10,8 +10,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", async(req, res)=>{
     //res.sendFile(path.join(__dirname+'/index.html'));
-    const employee = await sql.getEmployee();
-    res.json({"Employee": employee})
+    await sql.insertClub();
+    const employee = await sql.getClub();
+    
+    res.json({"Club": employee})
 });
 
 // app.get("/", (req, res)=>{

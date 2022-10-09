@@ -5,18 +5,23 @@ const pool = mysql.createPool({
     port:'3306',
     user:'root',
     password:'',
-    database:'week5_company_db'
+    database:'inha_db'
 })
 
 const promisePool = pool.promise();
 
 const sql = {
-    getEmployee: async () => {
+    getClub: async () => {
         const results = await promisePool.query(`
-        select * from employee
+        select * from club
         `)
 
         return results;
+    },
+    insertClub: async () => {
+        const results = await promisePool.query(`
+        insert into club values (NULL, 'database club')
+        `)
     },
 };
 
