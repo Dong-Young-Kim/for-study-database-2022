@@ -10,7 +10,7 @@ const pool = mysql.createPool({
 
 const promisePool = pool.promise();
 
-export const selectSql = {
+export const selectSql = { //다른 파일에서 사용하는 경우 앞에 export 명령어
     getEmployee: async () => {
         const sql = `select * from employee`;
         const [result] = await promisePool.query(sql);

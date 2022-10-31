@@ -28,6 +28,58 @@ desc t2;
 select * from t1;
 select * from t2;
 -- -------------------------------------------------------------
+-- join <퀴즈 1-1>
+select	*
+from	t1, t2
+where	t1.id=t2.id;
+
+select	*
+from	t1 join t2
+where	t1.id=t2.id;
+
+-- natural join <퀴즈 1-2>
+select	*
+from	t1 natural join t2;
+
+-- left join <퀴즈 1-3>
+select	*
+from	t1 left join t2
+on	t1.id=t2.id;
+
+-- left join <퀴즈 1-4>
+select	*
+from	t1 natural left join t2;
+
+-- right join <퀴즈 1-5>
+select	*
+from	t1 right join t2
+on		t1.id=t2.id;
+
+-- right join <퀴즈 1-6>
+select	*
+from	t1 natural right join t2;
+
+-- left join <퀴즈 1-7>
+select	*
+from	t1 left join t2
+on		t1.id=t2.id
+where	t1.id is not null;
+
+-- left join <퀴즈 1-7>
+select	*
+from	t1 right join t2
+on		t1.id=t2.id
+where	t1.id is not null;
+
+-- full join
+(select	*
+from	t1 natural left join t2)
+union
+(select	*
+from	t1 natural right join t2);
+-- -------------------------------------------------------------
+
+
 
 -- in <퀴즈 2-1>
 select	*
@@ -101,7 +153,7 @@ where	not exists (
 4,5 -> t2에 존재하지 않으므로 출력됨
 null -> 한쪽이 null이면 출력
 */
-
+-- -------------------------------------------------------
 
 -- index 삭제
 create index t1_id_index on t1(id);

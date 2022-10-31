@@ -3,6 +3,8 @@ import {selectSql, updateSql} from '../database/sql';
 
 const router = express.Router();
 
+// /employee 
+// render는 hbs파일 이름을 넘겨 주는 것
 router.get('/employee', async (_req, res) => {
     const emp_res = await selectSql.getEmployee();
     res.render('updateEmployee', {
