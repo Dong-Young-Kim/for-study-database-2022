@@ -22,7 +22,7 @@ app.set('view engine', 'hbs'); //엔진, 그대로 지킬 것
 app.use(logger('dev')); //인
 
 //app.use('/', homeRouter);
-app.use('/', loginRouter);
+app.use('/', loginRouter); //주소창에 표현되는 dir 이름 (login이므로 root 주소)
 //app.use('/update', updateRouter);
 app.use('/delete', deleteRouter);
 app.use('/select', selectRouter);
