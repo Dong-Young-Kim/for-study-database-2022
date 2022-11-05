@@ -21,16 +21,16 @@ router.post('/', (req, res) => {//값을 post로 던지는 경우 동작
             Address: vars.address,
             Sex: vars.sex,
             Salary: vars.salary,
-            Super_ssn: vars.super_ssn,
+            Super_ssn: vars.superssn,
             Dno: vars.dno,
         };
         insertSql.setEmployee(data);
     } else {
         const data = {
-            Dname: vars.Dname,
-            Dnumber: vars.Dnumber,
-            Mgr_ssn: vars.Mgr_ssn,
-            Mgr_start_date: vars.Mgr_start_daate,
+            Dname: vars.dname,
+            Dnumber: vars.dnumber,
+            Mgr_ssn: vars.mgrssn,
+            Mgr_start_date: vars.mgrstartdate,
         };
         insertSql.setDepartment(data);
     }
