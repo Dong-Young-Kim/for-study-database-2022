@@ -5,17 +5,24 @@ const pool = mysql.createPool({
     port: 3306,
     user:'root',
     password:'',
-    database:'week9',
+    database:'inha_db',
 });
 
 const promisePool = pool.promise();
 
 export const selectSql = { //다른 파일에서 사용하는 경우 앞에 export 명령어
-    getEmployee: async () => {
-        const sql = `select * from employee`;
+    getBuilding: async () => {
+        const sql = `select * from building`;
         const [result] = await promisePool.query(sql);
 
         return result;
+    },
+
+    getRoom: async () => {
+        const sql = `select * from room`;
+        const [result] = await promisePool.query(sql);
+
+        return result
     },
 
     getDepartment: async () => {
@@ -23,7 +30,36 @@ export const selectSql = { //다른 파일에서 사용하는 경우 앞에 expo
         const [result] = await promisePool.query(sql);
 
         return result
-    }
+    },
+
+    getClass: async () => {
+        const sql = `select * from class`;
+        const [result] = await promisePool.query(sql);
+
+        return result
+    },
+
+    getStudent: async () => {
+        const sql = `select * from student`;
+        const [result] = await promisePool.query(sql);
+
+        return result
+    },
+
+    getClub: async () => {
+        const sql = `select * from club`;
+        const [result] = await promisePool.query(sql);
+
+        return result
+    },
+
+    getEmployee: async () => {
+        const sql = `select * from employee`;
+        const [result] = await promisePool.query(sql);
+
+        return result
+    },
+
 }
 
 export const insertSql = {
