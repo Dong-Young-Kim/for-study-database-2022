@@ -1,0 +1,136 @@
+<h1>{{title1}}</h1>
+
+<table>
+    <tr>
+        <td>bid</td>
+        <td>b_name</td>
+
+    </tr>
+    {{#each building}}
+    <tr>
+        <td>{{bid}}</td>
+        <td>{{b_name}}</td>
+
+    </tr>
+    {{/each}}
+</table>
+
+<h1>{{title2}}</h1>
+
+<table>
+    <tr>
+        <td>rid</td>
+        <td>r_name</td>
+        <td>capacity</td>
+        <td>bid</td>
+    </tr>
+    {{#each room}}
+    <tr>
+        <td>{{rid}}</td>
+        <td>{{r_name}}</td>
+        <td>{{capacity}}</td>
+        <td>{{bid}}</td>
+    </tr>
+    {{/each}}
+</table>
+
+<h1>{{title3}}</h1>
+
+<table>
+    <tr>
+        <td>did</td>
+        <td>d_name</td>
+        <td>d_email</td>
+        <td>d_phonenumber</td>
+        <td>rid</td>
+    </tr>
+    {{#each department}}
+    <tr>
+        <td>{{did}}</td>
+        <td>{{d_name}}</td>
+        <td>{{d_email}}</td>
+        <td>{{d_phonenumber}}</td>
+        <td>{{rid}}</td>
+    </tr>
+    {{/each}}
+</table>
+
+<h1>{{title4}}</h1>
+
+<table>
+    <tr>
+        <td>cid</td>
+        <td>cname</td>
+        <td>professor</td>
+        <td>numOfPartticipants</td>
+        <td>rid</td>
+        <td>did</td>
+    </tr>
+    {{#each class_}}
+    <tr>
+        <td>{{cid}}</td>
+        <td>{{cname}}</td>
+        <td>{{professor}}</td>
+        <td>{{numOfPartticipants}}</td>
+        <td>{{rid}}</td>
+        <td>{{did}}</td>
+    </tr>
+    {{/each}}
+</table>
+
+<h1>{{title6}}</h1>
+
+<table>
+    <tr>
+        <td>clid</td>
+        <td>clname</td>
+
+    </tr>
+    {{#each club}}
+    <tr>
+        <td>{{clid}}</td>
+        <td>{{clname}}</td>
+
+    </tr>
+    {{/each}}
+</table>
+
+<h1>{{title7}}</h1>
+
+<table>
+    <tr>
+        <td>eid</td>
+        <td>ename</td>
+        <td>position_did</td>
+    </tr>
+    {{#each employee}}
+    <tr>
+        <td>{{eid}}</td>
+        <td>{{ename}}</td>
+        <td>{{position_did}}</td>
+    </tr>
+    {{/each}}
+</table>
+
+<h1>{{title5}}</h1>
+
+<table>
+    <tr>
+        <td>sid</td>
+        <td>s_name</td>
+        <td>s_email</td>
+        <td>s_phonenumber</td>
+        <td>student_id</td>
+        <td>major_did</td>
+    </tr>
+    {{#each student}}
+    <tr>
+        <td>{{sid}}</td>
+        <td>{{s_name}}</td>
+        <td>{{s_email}}</td>
+        <td>{{s_phonenumber}}</td>
+        <td>{{student_id}}</td>
+        <td>{{major_did}}</td>
+    </tr>
+    {{/each}}
+</table>
