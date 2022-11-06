@@ -11,28 +11,16 @@ router.post('/', (req, res) => {//값을 post로 던지는 경우 동작
     const vars = req.body;
     const var_length = Object.keys(req.body).length;
 
-    if (var_length > 4) { //naive하게 변수 길이로 구분
+    if (var_length == 4) { //naive하게 변수 길이로 구분
         const data = { //html home에서 넘어온 값들
-            Fname: vars.fname,
-            Minit: vars.minit,
-            Lname: vars.lname,
-            Ssn: vars.ssn,
-            Bdate: vars.bdate,
-            Address: vars.address,
-            Sex: vars.sex,
-            Salary: vars.salary,
-            Super_ssn: vars.superssn,
-            Dno: vars.dno,
+            Rid: vars.rid,
+            R_name: vars.r_name,
+            Capacity: vars.capacity,
+            Bid: vars.bid
         };
-        insertSql.setEmployee(data);
+        insertSql.setRoom(data);
     } else {
-        const data = {
-            Dname: vars.dname,
-            Dnumber: vars.dnumber,
-            Mgr_ssn: vars.mgrssn,
-            Mgr_start_date: vars.mgrstartdate,
-        };
-        insertSql.setDepartment(data);
+        
     }
     res.redirect('/');
 })

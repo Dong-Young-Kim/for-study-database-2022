@@ -63,18 +63,10 @@ export const selectSql = { //다른 파일에서 사용하는 경우 앞에 expo
 }
 
 export const insertSql = {
-    setEmployee: async (data) => {
-        const sql = `insert into employee values (
-            "${data.Fname}", "${data.Minit}", "${data.Lname}", "${data.Ssn}", "${data.Bdate}",
-            "${data.Address}", "${data.Sex}", "${data.Salary}", "${data.Super_ssn}", "${data.Dno}"
-        )`
 
-        await promisePool.query(sql);
-    },
-
-    setDepartment: async (data) => {
-        const sql = `insert into department values (
-            "${data.Dname}", "${data.Dnumber}", "${data.Mgr_ssn}", "${data.Mgr_start_date}"
+    setRoom: async (data) => {
+        const sql = `insert into room values (
+            "${data.Rid}", "${data.R_name}", "${data.Capacity}", "${data.Bid}"
         )`
 
         await promisePool.query(sql);
