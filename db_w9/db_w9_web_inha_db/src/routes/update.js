@@ -3,38 +3,26 @@ import {selectSql, updateSql} from '../database/sql';
 
 const router = express.Router();
 
-// /employee 
-// render는 hbs파일 이름을 넘겨 주는 것
-router.get('/employee', async (_req, res) => {
-    const emp_res = await selectSql.getEmployee();
-    res.render('updateEmployee', {
-        title: '직원 테이블 갱신',
-        emp_res,
+router.get('/student', async (_req, res) => {
+    const stu_res = await selectSql.getStudent();
+    res.render('updateStudent', {
+        title: '학생 테이블 갱신',
+        stu_res,
     });
 });
-
-router.get('/department', async (_req, res) => {
-    const dept_res = await selectSql.getDepartment();
-    res.render('updateDepartment', {
-        title: '부서 테이블 갱신',
-        dept_res,
-    });
-});
-
-router.post('/employee', async (_req, res) => {
-    await updateSql.updateEmployee();
-
-    res.redirect('/update/employee');
-});
-
-router.post('/department', async (req, res) => {
+router.post('/student', async (req, res) => {
     const vars = req.body;
     const data = {
-        Dname: vars.dname,
+        //Sid: vars.sid,
+        S_name: vars.s_name,
+        S_email: vars.s_email,
+        S_phonenumber: vars.s_phonenumber,
+        Student_id: vars.student_id,
+        Major_did: vars.major_did,
     }
-    await updateSql.updateDepartment(data);
+    await updateSql.updateStudent(data);
 
-    res.redirect('/update/department');
+    res.redirect('/update/student');
 })
 
 module.exports = router;

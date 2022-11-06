@@ -82,14 +82,16 @@ export const insertSql = {
 };
 
 export const updateSql = {
-    updateEmployee: async () => {
-        const sql = `update employee set salary = 500 where Minit = "F"`;
-        await promisePool.query(sql);
-    },
 
-    updateDepartment: async (data) => {
+    updateStudent: async (data) => {
         console.log(data);
-        const sql = `update department set dname = "${data.Dname}" where Dnumber=5`;
+        const sql = `update student set 
+            s_name = "${data.S_name}", 
+            s_email = "${data.S_email}", 
+            s_phonenumber = "${data.S_phonenumber}", 
+            student_id = ${data.Student_id}, 
+            major_did = ${data.Major_did}
+            where sid=100008`;
         console.log(sql);
         await promisePool.query(sql);
     }
