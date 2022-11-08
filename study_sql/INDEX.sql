@@ -27,6 +27,8 @@ desc t2;
 
 select * from t1;
 select * from t2;
+
+select * from t1,t2;
 -- -------------------------------------------------------------
 -- join <퀴즈 1-1>
 select	*
@@ -131,7 +133,7 @@ where	exists (
 select	*
 from	t1
 where	exists (
-	select	*
+	select id
     from	t2
     where	t1.id = t2.id);
 /*
