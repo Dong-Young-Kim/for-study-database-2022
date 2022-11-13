@@ -1,0 +1,32 @@
+<h1>{{ title }}</h1>
+
+<table> 
+    <tr>
+        <td>student name</td>
+        <td>student id</td>
+        <td>class name</td> 
+        <td>professor name</td> 
+    </tr>
+    {{#each sign_up}} 
+        <form method="post">
+            <tr>
+                <td>{{s_name}}</td>
+                <td>{{student_id}}</td>
+                <td>{{cname}}</td>
+                <td>{{professor}}</td>
+                <td>{{sid}}</td>
+                <td style="border: none; margin-left: 10px;">
+                    <button 
+                        style="margin-left: 10px;" 
+                        name='delBtn' 
+                        type="submit" 
+                        value="{{sid}} {{cid}} "
+                        formaction="/delete"
+                    >
+                    삭제 
+                    </button>
+                </td> 
+            </tr>
+        </form> 
+    {{/each}}
+</table>
