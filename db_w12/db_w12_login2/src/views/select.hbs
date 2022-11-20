@@ -92,37 +92,57 @@
         {{! Database에서 class 데이터를 가져와서 테이블로 보여주기 }}
         {{! 마지막 열에는 "수강신청" 이라는 버튼이 있어야 함 }}
         {{! 수강신청 버튼을 클릭하면 DB에 해당 결과가 반영되어야 함 }}
-        <table>
-        <tr>
-            <td>강의</td>
-            <td>교수명</td>
-            <td>수강인원</td> 
-            <td>강의실</td> 
-        </tr>
-        {{#each res_class}} 
-            <form method="post">
-              
-                <tr>
-                    <td>{{cname}}</td>
-                    <td>{{professor}}</td>
-                    <td>{{numOfPartticipants}}</td>
-                    <td>{{rid}}</td>
-                    <td style="border: none; margin-left: 10px;">
-                        <button 
-                            style="margin-left: 10px;" 
-                            name='delBtn' 
-                            type="submit" 
-                            value=" "
-                            formaction="/"
-                        >
-                        신청
-                        </button>
-                    </td> 
-                </tr>
-              
-            </form> 
-        {{/each}}
-</table>
+        <table style="width:60%;">
+          <tr style="background-color: #0770bb; color: white">
+              <td scope="col" style="width:40%;">강의</td>
+              <td scope="col" style="width:30%;">교수명</td>
+              <td scope="col" style="width:10%;">수강인원</td> 
+              <td scope="col" style="width:10%;">여석</td> 
+              <td scope="col" style="width:20%;">강의실</td> 
+              <td scope="col" style="width:10%;">신청</td> 
+          </tr>
+          {{#each res_class}} 
+          <form method="post">
+            <tr>
+              <td scope="col" style="width:40%;">{{cname}}</td>
+              <td scope="col" style="width:30%;">{{professor}}</td>
+              <td scope="col" style="width:10%;">{{numOfPartticipants}}</td>
+              <td scope="col" style="width:10%;">{{remain}}</td>
+              <td scope="col" style="width:20%;">{{rid}}</td>
+              <td style="border: none; width:10%;">
+                  <button 
+                      name='insertBtn' 
+                      type="submit" 
+                      value={{cid}}
+                      formaction="/sugang"
+                  >
+                    신청
+                  </button>
+              </td> 
+            </tr>
+          </form> 
+          {{/each}}
+        </table>
+
+        <span class="main-top_title">수강신청 확인</span>
+
+        <table style="width:60%;">
+          <tr style="background-color: #0770bb; color: white">
+              <td scope="col" style="width:50%;">강의</td>
+              <td scope="col" style="width:30%;">교수명</td>
+              <td scope="col" style="width:20%;">강의실</td> 
+          </tr>
+          {{#each signed_class}} 
+          <form method="post">
+            <tr>
+              <td scope="col" style="width:50%;">{{cname}}</td>
+              <td scope="col" style="width:30%;">{{professor}}</td>
+              <td scope="col" style="width:20%;">{{rid}}</td>
+            </tr>
+          </form> 
+          {{/each}}
+        </table>
+
       </div>
     </div>
   </div>

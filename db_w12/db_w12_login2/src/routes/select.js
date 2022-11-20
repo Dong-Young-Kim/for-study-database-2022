@@ -15,7 +15,7 @@
 import express from "express";
 // TODO
 // sql import
-import { selectSql, deleteSql } from "../database/sql";
+import { selectSql, insertSql, deleteSql } from "../database/sql";
 
 const router = express.Router();
 
@@ -23,18 +23,36 @@ router.get('/', async function (req, res) {
     // TODO
     // class 정보 불러오기
     const res_class = await selectSql.getClass();
-    
+    const signed_class = await selectSql.getSignUp(req.cookies.user);
     if (req.cookies.user) {
+        const userName = await selectSql.getLoginUser(req.cookies.user);
         // TODO
         // 불러온 class 정보 같이 넘겨주기
         res.render('select', { 
-            user: req.cookies.user,
-            res_class
+            user: userName[0].s_name,
+            res_class,
+            signed_class
         });
     } else {
         res.render('/')
     }
 
 });
+
+//신청 버튼을 눌렀을경우 update query를 실행하며 조회 페이지로 이동
+router.post('/', async (req,res) => {
+    console.log('insert Value:', req.body.insertBtn);
+    console.log('insert Value:', req.cookies.user);
+
+    const data = {
+        sid: req.cookies.user,
+        cid: req.body.insertBtn
+    };
+
+    await insertSql.insertSignUp(data);
+
+    res.redirect('/sugang');
+});
+
 
 module.exports = router;
