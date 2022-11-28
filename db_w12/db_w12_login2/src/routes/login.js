@@ -28,9 +28,13 @@ router.use(expressSession({
 }))
 
 // 로그인 한 user는 login 쿠키 값, 로그인 한 user가 아니면 login.hbs로
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     if (req.cookies.user) {
-        res.render('main', { 'user': req.cookies.user });
+        const userName = await selectSql.getLoginUser(req.cookies.user);
+        res.render('main', { 
+            //'user_sid': req.cookies.user,
+            'user': userName[0].s_name
+        });
     } else {
         res.render('login');
     }
@@ -55,7 +59,7 @@ router.post('/', async (req, res) => {
     users.map((user) => {
         if (String(vars.id) === String(user.student_id) && String(vars.password) === String(user.s_password)) {
             checkLogin = true;
-            whoAmI = user.s_name;
+            whoAmI = user.sid;
         }
     })
     console.log("login status: " + checkLogin)
@@ -69,9 +73,6 @@ router.post('/', async (req, res) => {
     } else {
         res.redirect('/');
     }
-    
-    
-
 })
 
 module.exports = router;
