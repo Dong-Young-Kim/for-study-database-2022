@@ -1,0 +1,49 @@
+body {
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.frame {
+    padding: 20px;
+    border-radius: 15px;
+    box-sizing: border-box;
+    border: 1px solid #757575;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 350px;
+}
+
+.frame>h1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #274e97;
+    justify-content: left;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#id, #passwd, .btn {
+    font-size: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #F8F8F8;
+    padding-left: 20px;
+    height: 40px;
+    width: 300px;
+    margin-top: 20px;
+}
+
+.btn {
+    color: #fff;
+    background-color: #274e97;
+}

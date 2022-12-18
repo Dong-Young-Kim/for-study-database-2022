@@ -5,7 +5,7 @@ const pool = mysql.createPool(
   process.env.JAWSDB_URL ?? {
     host: 'localhost',
     user: 'root',
-    database: 'inha_db',
+    database: 'car_dealer',
     password: '',
     waitForConnections: true,
     connectionLimit: 10,
@@ -16,50 +16,74 @@ const pool = mysql.createPool(
 // async / await 사용
 const promisePool = pool.promise();
 
-// selec query
+// select query
 export const selectSql = {
   getUsers: async () => {
-    const [rows] = await promisePool.query(`select * from student`);
-
+    const [rows] = await promisePool.query(`select * from User`);
     return rows
-  },
-  
-  getClass: async () => {
-    const [rows] = await promisePool.query(`select (numOfPartticipants - count(*)) as remain, cid, cname, professor, numOfPartticipants, rid, did 
-                                                    from class left join sign_up on cid = class_cid
-                                                    group by cid;`);
-    return rows;
   },
 
   getLoginUser: async (data) => {
-    const [rows] = await promisePool.query(`select * from student where sid=${data};`);
+    const [rows] = await promisePool.query(`
+      select uid, name from user, salesperson where uid = sid and uid=${data}
+      union
+      select uid, name from user, customer where uid = ssn and uid=${data};
+    `);
+    var loginUserInfo = rows[0];
+    if(loginUserInfo.uid >= 20000 && loginUserInfo.uid < 30000) {loginUserInfo.type = 'salesPerson';}
+    else if (loginUserInfo.uid >= 10000 && loginUserInfo.uid < 20000) {loginUserInfo.type = 'customer';}
+    return loginUserInfo;
+  },
+
+  getModel: async () => {
+    const [rows] = await promisePool.query(`select * from stockModel;`); //using view
     return rows;
   },
 
-  getSignUp: async (data) => {
-    //console.log(data);                                                  
-    const [rows] = await promisePool.query(`select * from student, class, sign_up 
-    where student_sid=sid and class_cid=cid 
-          and sid=${data}`);
+  getRsrv: async (data) => {
+    const [rows] = await promisePool.query(`select vin, name, price, ssn from vehicle, model where vehicle.mid = model.mid and ssn = ${data};`);
     return rows;
-  }
+  },
+
+  getAllRsrv: async () => {
+    const [rows] = await promisePool.query(`select vin, name, price, ssn from vehicle, model where vehicle.mid = model.mid and ssn is not null;`);
+    return rows;
+  },
+
+  getVehicle: async () => {
+    const [rows] = await promisePool.query(`select vin, name, model.mid, price, ssn as rsrv_cusomer from vehicle, model where vehicle.mid = model.mid order by vin;`);
+    return rows;
+  },
+
 }
 
 export const insertSql = {
-  insertSignUp: async (data) => {
-    
-    console.log("deleteSql.deleteDepartment:", data.cid, data.sid);
-    const sql = `insert into sign_up value (${data.cid}, ${data.sid})`
-
+  insertVehicle: async (data) => {
+    const sql = `insert into vehicle value (${data.vin}, ${data.mid}, ${data.price}, NULL)`
     await promisePool.query(sql);
-
+  },
+  insertSale: async (data) => {
+    const sql = `insert into sale value (${data.vin}, ${data.ssn}, ${data.sid}, NULL, 'saled')`
+    await promisePool.query(sql);
   }
 }
 
 export const deleteSql = {
-  deleteSignUp: async (data) => {
-      console.log("deleteSql.deleteDepartment:", data.sid, data.cid);
-      const sql = `delete from sign_up where student_sid=${data.sid} and class_cid=${data.cid}`
+  deleteVehicle: async (data) => {
+      const sql = `delete from vehicle where vin=${data.vin}`
+      await promisePool.query(sql);
+  },
+};
+
+export const updateSql = {
+  newRsrv: async (data) => {
+      const sql = `
+      update vehicle
+      set ssn = 10005
+      where vehicle.vin = (select vin from model, vehicle 
+                          where vehicle.mid = model.mid and model.name='FH16' and ssn is null 
+                          order by price 
+                          limit 1);`
 
       await promisePool.query(sql);
   },

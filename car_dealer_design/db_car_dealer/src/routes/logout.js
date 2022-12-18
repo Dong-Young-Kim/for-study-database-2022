@@ -3,16 +3,26 @@ import express from "express";
 import expressSession from 'express-session';
 const router = express.Router();
 
-// 쿠키와 세션은 아래와 같이 사용(일단은 쿠키만 사용)
+// 쿠키 및 세션 설정
 router.use(cookieParser());
 router.use(expressSession({
-    secret: 'dilab',
+    secret: 'dnyg_cardealer',
     resave: true,
     saveUninitialized: true,
 }))
 
 //로그아웃 시 쿠키가 사라짐 = login이 풀림
-router.get('/logout', (req, res) => {
+router.get('/', (req, res) => {
+    if (req.cookies.user) {
+        res.clearCookie('user')
+        res.redirect("/");
+    } else {
+        res.redirect("/");
+    }
+})
+
+//로그아웃 시 쿠키가 사라짐 = login이 풀림
+router.post('/', (req, res) => {
     if (req.cookies.user) {
         res.clearCookie('user')
         res.redirect("/");

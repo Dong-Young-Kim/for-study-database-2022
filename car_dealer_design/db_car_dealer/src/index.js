@@ -20,7 +20,8 @@ import connectLiveReload from 'connect-livereload';
 
 import loginRouter from "./routes/login";
 import logoutRouter from './routes/logout';
-import selectRouter from "./routes/select";
+import customerRouter from "./routes/customer";
+import adminRouter from "./routes/saler";
 
 const PORT = 3000;
 const IPADDR = 'localhost'
@@ -37,8 +38,6 @@ const app = express();
 
 app.use(connectLiveReload());
 
-
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -50,8 +49,9 @@ app.use(logger("dev"));
 
 app.use("/", loginRouter); //로그인 시
 app.use("/logout", logoutRouter); //로그아웃 시
-app.use("/sugang", selectRouter); //수강 웹페이지로 이동
+app.use("/cus", customerRouter); //구매,예약 웹페이지로 이동
+app.use("/sal", adminRouter); //차량 관리 웹페이지로 이동
 
 app.listen(PORT, IPADDR, () => {
-  console.log(`Example app listening at http://${IPADDR}:${PORT}`);
+  console.log(`car dealing management service listening at http://${IPADDR}:${PORT}`);
 });

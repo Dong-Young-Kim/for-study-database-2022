@@ -22,7 +22,7 @@ const router = express.Router();
 // 쿠키 및 세션 설정
 router.use(cookieParser());
 router.use(expressSession({
-    secret: 'dilab',
+    secret: 'dnyg_cardealer',
     resave: true,
     saveUninitialized: true,
 }))
@@ -30,24 +30,19 @@ router.use(expressSession({
 // 로그인 한 user는 login 쿠키 값, 로그인 한 user가 아니면 login.hbs로
 router.get('/', async (req, res) => {
     if (req.cookies.user) {
-        const userName = await selectSql.getLoginUser(req.cookies.user);
-        res.render('main', { 
-            //'user_sid': req.cookies.user,
-            'user': userName[0].s_name
-        });
+        const userInfo = await selectSql.getLoginUser(req.cookies.user);
+        //console.log(userInfo.name)
+        if(userInfo.type === 'salesPerson'){ //관리자 로그인
+            res.redirect('/sal');
+        } else if (userInfo.type === 'customer'){ //구매자 로그인
+            res.redirect('/cus');
+        } else {
+            res.redirect('/logout'); //user id 확인 불가
+        }
     } else {
         res.render('login');
     }
 });
-
-router.get('/logout', (req, res) => {
-    if (req.cookies.user) {
-        res.clearCookie('user')
-        res.redirect("/");
-    } else {
-        res.redirect("/");
-    }
-})
 
 router.post('/', async (req, res) => {
     const vars = req.body;
@@ -57,9 +52,9 @@ router.post('/', async (req, res) => {
 
     // map -> for loop | user[i] 에 대해서 차례로 접근
     users.map((user) => {
-        if (String(vars.id) === String(user.student_id) && String(vars.password) === String(user.s_password)) {
+        if (String(vars.id) === String(user.id) && String(vars.password) === String(user.password)) {
             checkLogin = true;
-            whoAmI = user.sid;
+            whoAmI = user.uid; //user의 id가 cookie값으로 
         }
     })
     console.log("login status: " + checkLogin)
@@ -69,8 +64,10 @@ router.post('/', async (req, res) => {
             expires: new Date(Date.now() + 3600000), // ms 단위 (3600000: 1시간 유효)
             httpOnly: true
         })
+        console.log(`longin sucess (user = ${whoAmI})`)
         res.redirect('/');
     } else {
+        console.log(`login falied (input id = ${vars.id})`)
         res.redirect('/');
     }
 })
